@@ -61,9 +61,16 @@ export default function FilterNav() {
   const [active, setActive] = useState('all');
 
   return (
-    <div className="w-full py-4">
-      <div className="flex justify-center">
-        <nav className="flex items-center gap-1 overflow-x-auto scrollbar-hide">
+    <div className="w-full border-b border-gray-100 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/*
+          Mobile  : left-aligned, scrollable (tabs wider than screen)
+          Desktop : centered, all tabs visible
+        */}
+        <nav
+          className="flex items-center gap-1 sm:gap-2 overflow-x-auto sm:justify-center py-3 sm:py-4"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
           {filters.map((filter) => {
             const isActive = active === filter.id;
             return (
@@ -72,10 +79,14 @@ export default function FilterNav() {
                 type="button"
                 onClick={() => setActive(filter.id)}
                 className={`
-                  flex items-center gap-2 px-4 py-2 rounded-full text-[14px] font-semibold
-                  whitespace-nowrap transition-all duration-200 select-none
+                  flex items-center gap-1.5 sm:gap-2
+                  px-3 sm:px-5 py-2
+                  rounded-full
+                  text-[13px] sm:text-[14px] font-bold
+                  whitespace-nowrap flex-shrink-0
+                  transition-all duration-200 select-none
                   ${isActive
-                    ? 'bg-gray-900 text-white shadow-sm'
+                    ? 'bg-gray-900 text-white'
                     : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
                   }
                 `}

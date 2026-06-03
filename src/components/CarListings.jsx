@@ -38,11 +38,19 @@ function StarRating({ rating }) {
 function CarCard({ car }) {
   const [liked, setLiked] = useState(false);
   return (
-    <div className="flex-shrink-0 w-[calc(25%-12px)] bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer group border border-gray-100 hover:-translate-y-2">
-
+    // Mobile: ~80vw card, Tablet: ~44vw, Desktop: fixed 272px
+    <div className="
+      flex-shrink-0
+      w-[78vw] sm:w-[44vw] lg:w-[272px]
+      bg-white rounded-2xl shadow-md hover:shadow-xl
+      transition-all duration-300 overflow-hidden cursor-pointer group
+      border border-gray-100 hover:-translate-y-1
+    ">
       {/* Image */}
-      <div className="relative h-[175px] overflow-hidden rounded-t-2xl">
-        <img src={car.img} alt={car.name}
+      <div className="relative h-[160px] sm:h-[175px] overflow-hidden rounded-t-2xl">
+        <img
+          src={car.img}
+          alt={car.name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           onError={e => { e.target.src = 'https://images.turo.com/media/vehicle/images/hU6xt7qCSCmvD4nyrfaobA.291x194.jpg'; }}
         />
@@ -60,14 +68,14 @@ function CarCard({ car }) {
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
           </svg>
         </button>
-        <div className="absolute bottom-3 right-3 w-[58px] h-[58px] rounded-full bg-black/60 backdrop-blur-sm flex flex-col items-center justify-center shadow-lg">
+        <div className="absolute bottom-3 right-3 w-[54px] h-[54px] rounded-full bg-black/60 backdrop-blur-sm flex flex-col items-center justify-center shadow-lg">
           <span className="text-white text-[9px] font-semibold tracking-wide leading-none">ONLY</span>
-          <span className="text-white text-[16px] font-black leading-tight">${car.price}</span>
+          <span className="text-white text-[15px] font-black leading-tight">${car.price}</span>
         </div>
       </div>
 
       {/* Body */}
-      <div className="px-4 pt-3 pb-4">
+      <div className="px-3 sm:px-4 pt-3 pb-4">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-1.5">
             <StarRating rating={car.rating} />
@@ -76,17 +84,17 @@ function CarCard({ car }) {
           </div>
           <span className="text-[11px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md">{car.year}</span>
         </div>
-        <h3 className="font-black text-[15px] text-gray-900 leading-tight mb-1.5">{car.name}</h3>
+        <h3 className="font-black text-[14px] sm:text-[15px] text-gray-900 leading-tight mb-1.5">{car.name}</h3>
         <p className="text-[12px] text-gray-500 leading-relaxed mb-3 line-clamp-2">{car.desc}</p>
-        <div className="flex items-center gap-2 mb-4 bg-gray-50 rounded-xl px-3 py-2 border border-gray-100">
+        <div className="flex items-center gap-2 mb-3 sm:mb-4 bg-gray-50 rounded-xl px-3 py-2 border border-gray-100">
           <div className="flex-1 text-center">
             <p className="text-[10px] text-gray-400 font-medium">Per Day</p>
-            <p className="text-[14px] font-black text-gray-900">${car.price}</p>
+            <p className="text-[13px] sm:text-[14px] font-black text-gray-900">${car.price}</p>
           </div>
           <div className="w-px h-7 bg-gray-200" />
           <div className="flex-1 text-center">
             <p className="text-[10px] text-gray-400 font-medium">3-Day Total</p>
-            <p className="text-[14px] font-black text-gray-900">${car.total}</p>
+            <p className="text-[13px] sm:text-[14px] font-black text-gray-900">${car.total}</p>
           </div>
         </div>
         <div className="flex items-center justify-between">
@@ -118,31 +126,49 @@ function ScrollSection({ title, subtitle, items }) {
   };
 
   return (
-    <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="flex items-start justify-between mb-6">
+    <section className="w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6">
+      <div className="flex items-start justify-between mb-5">
         <div>
-          <h2 className="text-[20px] font-bold text-gray-900 hover:underline cursor-pointer">{title}</h2>
-          <p className="text-[13px] text-gray-500 mt-0.5">{subtitle}</p>
+          <h2 className="text-[17px] sm:text-[20px] font-bold text-gray-900 hover:underline cursor-pointer leading-snug">
+            {title}
+          </h2>
+          {subtitle && (
+            <p className="text-[12px] sm:text-[13px] text-gray-500 mt-0.5">{subtitle}</p>
+          )}
         </div>
         <div className="flex items-center gap-2 mt-1 shrink-0">
-          <button onClick={() => scroll('left')} disabled={!canScrollLeft}
+          <button
+            onClick={() => scroll('left')}
+            disabled={!canScrollLeft}
             className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all
-              ${canScrollLeft ? 'border-gray-300 hover:border-gray-500 text-gray-700 bg-white hover:bg-gray-50 shadow-sm' : 'border-gray-200 text-gray-300 bg-gray-50 cursor-not-allowed'}`}>
+              ${canScrollLeft
+                ? 'border-gray-300 hover:border-gray-500 text-gray-700 bg-white hover:bg-gray-50 shadow-sm'
+                : 'border-gray-200 text-gray-300 bg-gray-50 cursor-not-allowed opacity-50'}`}
+          >
             <svg fill="none" height="14" viewBox="0 0 24 24" width="14">
               <path d="M14.47 5.47a.75.75 0 1 1 1.06 1.06L10.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06z" fill="currentColor"/>
             </svg>
           </button>
-          <button onClick={() => scroll('right')} disabled={!canScrollRight}
+          <button
+            onClick={() => scroll('right')}
+            disabled={!canScrollRight}
             className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all
-              ${canScrollRight ? 'border-gray-300 hover:border-gray-500 text-gray-700 bg-white hover:bg-gray-50 shadow-sm' : 'border-gray-200 text-gray-300 bg-gray-50 cursor-not-allowed'}`}>
+              ${canScrollRight
+                ? 'border-gray-300 hover:border-gray-500 text-gray-700 bg-white hover:bg-gray-50 shadow-sm'
+                : 'border-gray-200 text-gray-300 bg-gray-50 cursor-not-allowed opacity-50'}`}
+          >
             <svg fill="none" height="14" viewBox="0 0 24 24" width="14">
               <path d="M8.47 5.47a.75.75 0 0 1 1.06 0l6 6 .05.054a.75.75 0 0 1-.05 1.006l-6 6a.75.75 0 0 1-1.06-1.06L13.94 12 8.47 6.53a.75.75 0 0 1 0-1.06" fill="currentColor"/>
             </svg>
           </button>
         </div>
       </div>
-      <div ref={scrollRef} className="flex gap-4 overflow-x-auto pb-2"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+
+      <div
+        ref={scrollRef}
+        className="flex gap-3 sm:gap-4 overflow-x-auto pb-2"
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+      >
         {items.map(car => <CarCard key={car.id} car={car} />)}
       </div>
     </section>

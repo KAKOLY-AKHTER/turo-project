@@ -18,42 +18,22 @@ const cities = [
 
 const BallIcon = () => (
   <div style={{ position: 'relative', width: '110px', height: '90px' }}>
-
-    {/* Bottom ellipse shadow/bg */}
     <div style={{
-      position: 'absolute',
-      bottom: 0,
-      left: '50%',
-      transform: 'translateX(-50%)',
-      width: '80px',
-      height: '28px',
-      borderRadius: '50%',
-      background: '#ede9fe',
+      position: 'absolute', bottom: 0, left: '50%', transform: 'translateX(-50%)',
+      width: '80px', height: '28px', borderRadius: '50%', background: '#ede9fe',
     }} />
-
-    {/* Left curved sparkle — SVG arc */}
     <svg style={{ position: 'absolute', left: '0px', top: '28px', overflow: 'visible' }} width="22" height="30" viewBox="0 0 22 30">
       <path d="M18 2 Q2 15 18 28" stroke="#7c3aed" strokeWidth="3" strokeLinecap="round" fill="none"/>
     </svg>
-
-    {/* Right curved sparkle — SVG arc */}
     <svg style={{ position: 'absolute', right: '0px', top: '28px', overflow: 'visible' }} width="22" height="30" viewBox="0 0 22 30">
       <path d="M4 2 Q20 15 4 28" stroke="#7c3aed" strokeWidth="3" strokeLinecap="round" fill="none"/>
     </svg>
-
-    {/* Ball image — floating above ellipse */}
     <img
       src="/soccer_ball.png"
       alt="Soccer ball"
       style={{
-        position: 'absolute',
-        top: 0,
-        left: '50%',
-        transform: 'translateX(-50%)',
-        width: '72px',
-        height: '72px',
-        objectFit: 'contain',
-        zIndex: 1,
+        position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)',
+        width: '72px', height: '72px', objectFit: 'contain', zIndex: 1,
       }}
     />
   </div>
@@ -69,17 +49,11 @@ const ArrowBtn = ({ dir, onClick }) => (
       transform: 'translateY(-50%)',
       [dir === 'left' ? 'left' : 'right']: '-18px',
       zIndex: 10,
-      width: '36px',
-      height: '36px',
-      borderRadius: '50%',
-      background: 'white',
-      border: '1.5px solid #d1d5db',
+      width: '36px', height: '36px', borderRadius: '50%',
+      background: 'white', border: '1.5px solid #d1d5db',
       boxShadow: '0 1px 4px rgba(0,0,0,0.12)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      cursor: 'pointer',
-      padding: 0,
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      cursor: 'pointer', padding: 0,
     }}
   >
     {dir === 'left' ? (
@@ -122,12 +96,13 @@ export default function SoccerSection() {
   };
 
   return (
-    <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <div className="flex gap-10 items-center">
+    <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
 
-        {/* Left panel */}
-        <div className="flex-1 flex flex-col" style={{ gap: '12px' }}>
+      {/* Mobile: column, Desktop (lg+): row */}
+      <div className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-10">
 
+        {/* ── Left panel ── */}
+        <div className="flex flex-col" style={{ gap: '12px' }}>
           <BallIcon />
 
           <h2 style={{ fontSize: '28px', fontWeight: 900, color: '#111', lineHeight: '1.25', margin: 0 }}>
@@ -142,14 +117,9 @@ export default function SoccerSection() {
             <a
               href="#"
               style={{
-                display: 'inline-block',
-                background: '#5A32FB',
-                color: 'white',
-                fontSize: '14px',
-                fontWeight: 700,
-                padding: '12px 24px',
-                borderRadius: '12px',
-                textDecoration: 'none',
+                display: 'inline-block', background: '#5A32FB', color: 'white',
+                fontSize: '14px', fontWeight: 700, padding: '12px 24px',
+                borderRadius: '12px', textDecoration: 'none',
               }}
             >
               Explore all cities
@@ -157,31 +127,31 @@ export default function SoccerSection() {
           </div>
         </div>
 
-        {/* Right — scrollable cards */}
-        <div className="relative flex-shrink-0" style={{ width: '68%' }}>
+        {/* ── Right scrollable cards ──
+             Mobile  : full width, cards 72vw wide, 300px tall
+             Tablet  : full width, cards 44vw wide, 360px tall
+             Desktop : 68% width,  cards 270px wide, 420px tall  */}
+        <div className="relative w-full lg:flex-shrink-0 lg:w-[68%]">
 
           {canScrollLeft && <ArrowBtn dir="left" onClick={() => scroll('left')} />}
 
           <div
             ref={scrollRef}
             className="flex overflow-x-auto"
-            style={{ gap: '16px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            style={{ gap: '12px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {cities.map((city, i) => (
               <a
                 key={i}
                 href="#"
-                className="group"
-                style={{
-                  flexShrink: 0,
-                  width: '270px',
-                  height: '420px',
-                  borderRadius: '16px',
-                  overflow: 'hidden',
-                  position: 'relative',
-                  display: 'block',
-                  textDecoration: 'none',
-                }}
+                className="
+                  group flex-shrink-0
+                  w-[72vw] h-[300px]
+                  sm:w-[44vw] sm:h-[360px]
+                  lg:w-[270px] lg:h-[420px]
+                  rounded-2xl overflow-hidden relative block
+                "
+                style={{ textDecoration: 'none' }}
               >
                 <img
                   src={city.img}
@@ -190,9 +160,13 @@ export default function SoccerSection() {
                   className="group-hover:scale-105"
                 />
                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.08) 50%, transparent 100%)' }} />
-                <div style={{ position: 'absolute', bottom: '24px', left: '20px' }}>
-                  <p style={{ color: 'white', fontSize: '20px', fontWeight: 900, lineHeight: 1.2, margin: 0 }}>{city.name}</p>
-                  <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '13px', marginTop: '6px', marginBottom: 0 }}>{city.dates}</p>
+                <div style={{ position: 'absolute', bottom: '20px', left: '16px' }}>
+                  <p style={{ color: 'white', fontSize: '18px', fontWeight: 900, lineHeight: 1.2, margin: 0 }}
+                    className="sm:text-[20px]"
+                  >{city.name}</p>
+                  <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '12px', marginTop: '5px', marginBottom: 0 }}
+                    className="sm:text-[13px]"
+                  >{city.dates}</p>
                 </div>
               </a>
             ))}
