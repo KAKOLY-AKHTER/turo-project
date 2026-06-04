@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-// Reusable SVG Icon Components
 const FacebookIcon = ({ className }) => (
   <svg className={className} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="0" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
 );
@@ -114,159 +113,141 @@ const Footer = () => {
   const allItems = showMore ? [...currentData.initial, ...currentData.extra] : currentData.initial;
 
   return (
-    <footer className="bg-black text-white pt-12 pb-16 font-sans">
-      <div className="max-w-[1184px] mx-auto px-6">
-        
-        {/* Dynamic Tabs Section */}
-        <div className="flex flex-nowrap overflow-x-auto hide-scrollbar gap-x-8 mb-8">
-          {tabs.map(tab => (
+    <footer className="font-sans">
+
+      {/* ── Top section: translucent purple (unchanged) ── */}
+      <div className="bg-[#593cfb1a] text-white pt-12 pb-10">
+        <div className="max-w-[1184px] mx-auto px-6">
+
+          {/* Tabs */}
+          <div className="flex flex-nowrap overflow-x-auto hide-scrollbar gap-x-8 mb-8">
+            {tabs.map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => handleTabChange(tab.id)}
+                className={`pb-4 text-[12px] font-bold tracking-widest whitespace-nowrap relative ${
+                  activeTab === tab.id
+                    ? 'text-white border-b-2 border-white'
+                    : 'text-gray-400 hover:text-white'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Grid Content */}
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-x-4 gap-y-4 text-[13px] text-gray-400 font-medium min-h-[160px]">
+            {allItems.map((item, idx) => (
+              <a key={idx} href="#" className="hover:underline hover:text-white transition-colors block truncate pr-2">
+                {item}
+              </a>
+            ))}
+          </div>
+
+          {currentData.extra.length > 0 && (
             <button
-              key={tab.id}
-              onClick={() => handleTabChange(tab.id)}
-              className={`pb-4 text-[12px] font-bold tracking-widest whitespace-nowrap relative ${
-                activeTab === tab.id 
-                  ? 'text-white border-b-2 border-white' 
-                  : 'text-gray-400 hover:text-white'
-              }`}
+              onClick={() => setShowMore(!showMore)}
+              className="mt-8 text-[#593cfb] font-bold text-sm hover:underline"
             >
-              {tab.label}
+              {showMore ? 'Show less' : 'Show more'}
             </button>
-          ))}
+          )}
         </div>
-
-        {/* Dynamic Grid Content */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-x-4 gap-y-4 text-[13px] text-gray-400 font-medium min-h-[160px]">
-          {allItems.map((item, idx) => (
-            <a key={idx} href="#" className="hover:underline hover:text-white transition-colors block truncate pr-2">
-              {item}
-            </a>
-          ))}
-        </div>
-
-        {/* Show More / Show Less Button */}
-        {currentData.extra.length > 0 && (
-          <button
-            onClick={() => setShowMore(!showMore)}
-            className="mt-8 text-[#593cfb] font-bold text-sm hover:underline"
-          >
-            {showMore ? 'Show less' : 'Show more'}
-          </button>
-        )}
-
-        <hr className="border-gray-800 my-12" />
-
-        {/* Main Footer Navigation */}
-        <div className="grid grid-cols-2 md:grid-cols-12 gap-x-8 gap-y-12">
-          
-          {/* Columns */}
-          <div className="md:col-span-2">
-            <h4 className="font-bold text-[16px] mb-5 text-white">Turo</h4>
-            <ul className="space-y-3 text-[13px] font-medium text-gray-400">
-              <li><a href="#" className="hover:underline hover:text-white">About</a></li>
-              <li><a href="#" className="hover:underline hover:text-white">Team</a></li>
-              <li><a href="#" className="hover:underline hover:text-white">Policies</a></li>
-              <li><a href="#" className="hover:underline hover:text-white">Careers</a></li>
-              <li><a href="#" className="hover:underline hover:text-white">Press</a></li>
-              <li><a href="#" className="hover:underline hover:text-white">OpenRoad</a></li>
-            </ul>
-          </div>
-
-          <div className="md:col-span-2">
-            <h4 className="font-bold text-[16px] mb-5 text-white">Locations</h4>
-            <ul className="space-y-3 text-[13px] font-medium text-gray-400">
-              <li><a href="#" className="hover:underline hover:text-white">USA (EN)</a></li>
-              <li><a href="#" className="hover:underline hover:text-white">Australia (EN)</a></li>
-              <li><a href="#" className="hover:underline hover:text-white">Canada (EN)</a></li>
-              <li><a href="#" className="hover:underline hover:text-white">Canada (FR)</a></li>
-              <li><a href="#" className="hover:underline hover:text-white">France (FR)</a></li>
-              <li><a href="#" className="hover:underline hover:text-white">UK (EN)</a></li>
-            </ul>
-          </div>
-
-          <div className="md:col-span-2">
-            <h4 className="font-bold text-[16px] mb-5 text-white">Explore</h4>
-            <ul className="space-y-3 text-[13px] font-medium text-gray-400">
-              <li><a href="#" className="hover:underline hover:text-white">Why choose Turo</a></li>
-              <li><a href="#" className="hover:underline hover:text-white">Weddings</a></li>
-              <li><a href="#" className="hover:underline hover:text-white">Pitch a trip</a></li>
-              <li><a href="#" className="hover:underline hover:text-white">Trust & safety</a></li>
-              <li><a href="#" className="hover:underline hover:text-white">Get help</a></li>
-            </ul>
-          </div>
-
-          <div className="md:col-span-2">
-            <h4 className="font-bold text-[16px] mb-5 text-white">Hosting</h4>
-            <ul className="space-y-3 text-[13px] font-medium text-gray-400">
-              <li><a href="#" className="hover:underline hover:text-white">List your car</a></li>
-              <li><a href="#" className="hover:underline hover:text-white">Carculator</a></li>
-              <li><a href="#" className="hover:underline hover:text-white">All-Star Hosts</a></li>
-              <li><a href="#" className="hover:underline hover:text-white">Host tools</a></li>
-              <li><a href="#" className="hover:underline hover:text-white">Insurance & protection</a></li>
-            </ul>
-          </div>
-
-          {/* Social, Apps, Region - aligned to the right side */}
-          <div className="md:col-span-4 flex flex-col md:items-end space-y-6">
-            
-            {/* Social Icons */}
-            <div className="flex gap-4 items-center">
-              <a href="#" className="hover:opacity-70 transition-opacity text-white">
-                <FacebookIcon className="w-5 h-5" />
-              </a>
-              <a href="#" className="hover:opacity-70 transition-opacity text-white">
-                <InstagramIcon className="w-5 h-5" />
-              </a>
-              <a href="#" className="hover:opacity-70 transition-opacity text-white">
-                <TiktokIcon className="w-5 h-5" />
-              </a>
-              <a href="#" className="hover:opacity-70 transition-opacity text-white">
-                <YoutubeIcon className="w-5 h-5" />
-              </a>
-              <a href="#" className="border border-white px-2 py-0.5 rounded text-[11px] font-bold hover:bg-gray-800 transition-colors ml-1 text-white">
-                BLOG
-              </a>
-            </div>
-
-            {/* App Store Badges */}
-            <div className="flex gap-3">
-              <a href="#" className="hover:opacity-80 transition-opacity">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="Download on the App Store" className="h-[40px]" />
-              </a>
-              <a href="#" className="hover:opacity-80 transition-opacity">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" className="h-[40px]" />
-              </a>
-            </div>
-
-            {/* Language / Region */}
-            <div className="flex items-center gap-3 text-[13px] font-bold cursor-pointer hover:bg-gray-800 px-4 py-3 rounded-md transition-colors w-fit border border-transparent hover:border-gray-700">
-              <ChevronUpIcon className="w-4 h-4 text-gray-400" />
-              <div className="bg-white p-0.5 rounded-sm">
-                <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="USA Flag" className="w-6 h-auto block" />
-              </div>
-              <span className="text-white">English</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Copyright & Legal Links */}
-        <div className="text-[12px] text-gray-500 mt-16 flex flex-col md:flex-row gap-6 items-start md:items-center">
-          <span>©2026 Turo, Inc.</span>
-          <a href="#" className="hover:underline hover:text-white">Terms</a>
-          <a href="#" className="hover:underline hover:text-white">Privacy</a>
-          <a href="#" className="hover:underline hover:text-white">Cookie preferences</a>
-          <a href="#" className="hover:underline hover:text-white">Do not sell or share my personal information</a>
-        </div>
-        
       </div>
-      
+
+      {/* ── Bottom / main section: solid black ── */}
+      <div className="bg-black text-white pt-12 pb-16">
+        <div className="max-w-[1184px] mx-auto px-6">
+
+          <hr className="border-gray-800 mb-12" />
+
+          {/* Main Footer Navigation */}
+          <div className="grid grid-cols-2 md:grid-cols-12 gap-x-8 gap-y-12">
+
+            <div className="md:col-span-2">
+              <h4 className="font-bold text-[16px] mb-5 text-white">Turo</h4>
+              <ul className="space-y-3 text-[13px] font-medium text-gray-400">
+                {['About','Team','Policies','Careers','Press','OpenRoad'].map(l => (
+                  <li key={l}><a href="#" className="hover:underline hover:text-white">{l}</a></li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="md:col-span-2">
+              <h4 className="font-bold text-[16px] mb-5 text-white">Locations</h4>
+              <ul className="space-y-3 text-[13px] font-medium text-gray-400">
+                {['USA (EN)','Australia (EN)','Canada (EN)','Canada (FR)','France (FR)','UK (EN)'].map(l => (
+                  <li key={l}><a href="#" className="hover:underline hover:text-white">{l}</a></li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="md:col-span-2">
+              <h4 className="font-bold text-[16px] mb-5 text-white">Explore</h4>
+              <ul className="space-y-3 text-[13px] font-medium text-gray-400">
+                {['Why choose Turo','Weddings','Pitch a trip','Trust & safety','Get help'].map(l => (
+                  <li key={l}><a href="#" className="hover:underline hover:text-white">{l}</a></li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="md:col-span-2">
+              <h4 className="font-bold text-[16px] mb-5 text-white">Hosting</h4>
+              <ul className="space-y-3 text-[13px] font-medium text-gray-400">
+                {['List your car','Carculator','All-Star Hosts','Host tools','Insurance & protection'].map(l => (
+                  <li key={l}><a href="#" className="hover:underline hover:text-white">{l}</a></li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Social, Apps, Region */}
+            <div className="md:col-span-4 flex flex-col md:items-end space-y-6">
+
+              <div className="flex gap-4 items-center">
+                {[FacebookIcon, InstagramIcon, TiktokIcon, YoutubeIcon].map((Icon, i) => (
+                  <a key={i} href="#" className="hover:opacity-70 transition-opacity text-white">
+                    <Icon className="w-5 h-5" />
+                  </a>
+                ))}
+                <a href="#" className="border border-white px-2 py-0.5 rounded text-[11px] font-bold hover:bg-gray-800 transition-colors ml-1 text-white">
+                  BLOG
+                </a>
+              </div>
+
+              <div className="flex gap-3">
+                <a href="#" className="hover:opacity-80 transition-opacity">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="Download on the App Store" className="h-[40px]" />
+                </a>
+                <a href="#" className="hover:opacity-80 transition-opacity">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" className="h-[40px]" />
+                </a>
+              </div>
+
+              <div className="flex items-center gap-3 text-[13px] font-bold cursor-pointer hover:bg-gray-900 px-4 py-3 rounded-md transition-colors w-fit border border-transparent hover:border-gray-700">
+                <ChevronUpIcon className="w-4 h-4 text-gray-400" />
+                <div className="bg-white p-0.5 rounded-sm">
+                  <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="USA Flag" className="w-6 h-auto block" />
+                </div>
+                <span className="text-white">English</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Copyright */}
+          <div className="text-[12px] text-gray-500 mt-16 flex flex-col md:flex-row gap-6 items-start md:items-center">
+            <span>©2026 Turo, Inc.</span>
+            {['Terms','Privacy','Cookie preferences','Do not sell or share my personal information'].map(l => (
+              <a key={l} href="#" className="hover:underline hover:text-white">{l}</a>
+            ))}
+          </div>
+
+        </div>
+      </div>
+
       <style>{`
-        .hide-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .hide-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
     </footer>
   );
